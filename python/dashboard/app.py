@@ -80,11 +80,25 @@ st.markdown(
             margin-bottom: 25px;
         }
 
+        /* KPI-карточки: тёмные, чтобы не выглядели как пустые белые окна. */
         div[data-testid="stMetric"] {
-            background-color: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 18px;
+            background: linear-gradient(145deg, #171a22, #20242e);
+            border: 1px solid #303541;
+            border-radius: 14px;
+            padding: 16px 18px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        div[data-testid="stMetric"] label,
+        div[data-testid="stMetric"] label p,
+        div[data-testid="stMetric"] [data-testid="stMetricLabel"] {
+            color: #aeb6c4 !important;
+            font-size: 14px !important;
+        }
+
+        div[data-testid="stMetric"] [data-testid="stMetricValue"] {
+            color: #f5f7fa !important;
+            font-weight: 700;
         }
 
         .section-title {
@@ -92,6 +106,119 @@ st.markdown(
             font-weight: 650;
             margin-top: 20px;
             margin-bottom: 10px;
+        }
+
+        /* ========================================================
+           СОВРЕМЕННАЯ БОКОВАЯ НАВИГАЦИЯ
+           ======================================================== */
+        section[data-testid="stSidebar"] {
+            background: #0f1117;
+            border-right: 1px solid #252936;
+            min-width: 292px !important;
+            max-width: 292px !important;
+        }
+
+        section[data-testid="stSidebar"] > div {
+            padding: 1rem 0.9rem 1rem 0.9rem;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 10px 18px 10px;
+        }
+
+        .sidebar-brand-icon {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #6557f5, #5145d9);
+            color: white;
+            font-size: 23px;
+            box-shadow: 0 8px 20px rgba(91, 78, 230, 0.25);
+        }
+
+        .sidebar-brand-title {
+            color: #ffffff;
+            font-size: 20px;
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.35px;
+        }
+
+        .sidebar-brand-subtitle {
+            color: #8f96a6;
+            font-size: 12px;
+            line-height: 1.35;
+            margin-top: 4px;
+            max-width: 205px;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: #2d323d;
+            margin: 2px 10px 22px 10px;
+        }
+
+        section[data-testid="stSidebar"] [data-testid="stRadio"] > label {
+            display: none;
+        }
+
+        section[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] {
+            gap: 9px;
+        }
+
+        section[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label {
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 11px;
+            padding: 13px 16px;
+            min-height: 50px;
+            margin: 0;
+            transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+        }
+
+        section[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:hover {
+            background: #181c25;
+            border-color: #2b3040;
+            transform: translateX(2px);
+        }
+
+        section[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label p {
+            color: #cfd4df !important;
+            font-size: 17px !important;
+            font-weight: 600 !important;
+            line-height: 1.25 !important;
+        }
+
+        section[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label[data-checked="true"] {
+            background: linear-gradient(90deg, #302b62 0%, #25243b 100%);
+            border-color: #4b467b;
+            box-shadow: inset 3px 0 0 #7166f6, 0 5px 16px rgba(0, 0, 0, 0.16);
+        }
+
+        section[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label[data-checked="true"] p {
+            color: #ffffff !important;
+            font-weight: 750 !important;
+        }
+
+        section[data-testid="stSidebar"] [data-testid="stRadio"] input,
+        section[data-testid="stSidebar"] [data-testid="stRadio"] svg {
+            display: none !important;
+        }
+
+        section[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label > div:first-child {
+            display: none !important;
+        }
+
+        section[data-testid="stSidebar"] hr {
+            border-color: #272b36;
+            margin: 12px 8px 14px 8px;
         }
 
         /* Все формы ввода выполнены в единой тёмной цветовой гамме. */
@@ -192,9 +319,9 @@ def refresh_data():
 # ============================================================
 
 RUSSIAN_COLUMN_NAMES = {
-    "id": "ID",
-    "train_id": "ID поезда",
-    "passenger_id": "ID пассажира",
+    "id": "№",
+    "train_id": "№ поезда",
+    "passenger_id": "№ пассажира",
     "train_number": "Номер поезда",
     "departure_date": "Дата отправления",
     "departure_station": "Станция отправления",
@@ -216,7 +343,55 @@ RUSSIAN_COLUMN_NAMES = {
     "revenue": "Выручка, BYN",
     "tickets": "Билеты",
     "total_luggage": "Всего багажа",
+    "passenger_count": "Количество пассажиров",
+    "luggage_count": "Количество багажа",
+    "total_extra_places": "Дополнительные места",
+    "total_revenue": "Выручка, BYN",
+    "train_count": "Количество поездов",
+    "route_count": "Количество маршрутов",
 }
+
+DISPLAY_COLUMN_NAMES = {
+    "id": "№",
+    "train_id": "№ поезда",
+    "passenger_id": "№ пассажира",
+    "train_number": "Номер поезда",
+    "departure_date": "Дата отправления",
+    "departure_station": "Станция отправления",
+    "destination_station": "Станция назначения",
+    "sold_tickets": "Продано билетов",
+    "ticket_price": "Цена билета, BYN",
+    "carriage_type": "Тип вагона",
+    "total_revenue": "Выручка, BYN",
+    "full_name": "ФИО пассажира",
+    "luggage_count": "Количество багажа",
+    "extra_places": "Дополнительные места",
+    "train_count": "Количество поездов",
+    "total_tickets": "Всего билетов",
+    "average_ticket_price": "Средняя цена билета, BYN",
+    "average_price": "Средняя цена, BYN",
+    "route": "Маршрут",
+    "date": "Дата",
+    "count": "Количество",
+    "revenue": "Выручка, BYN",
+    "tickets": "Билеты",
+    "total_luggage": "Всего багажа",
+    "passenger_count": "Количество пассажиров",
+    "total_extra_places": "Дополнительные места",
+    "route_count": "Количество маршрутов",
+}
+
+
+def prepare_display_dataframe(df: pd.DataFrame) -> pd.DataFrame:
+    """Форматирует таблицу для интерфейса: даты и русские названия столбцов."""
+    result = display_date_columns(df)
+    return result.rename(
+        columns={
+            column: DISPLAY_COLUMN_NAMES.get(column, column)
+            for column in result.columns
+        }
+    )
+
 
 CURRENCY_COLUMNS = {
     "ticket_price",
@@ -717,29 +892,36 @@ def handle_db_error(error: Exception, action: str):
 # ============================================================
 
 with st.sidebar:
-    st.title("🚆 Railway Analytics")
-    st.caption("Система аналитики железнодорожных перевозок")
-    st.divider()
-
-    page = st.radio(
-        "Навигация",
-        [
-            "Главная",
-            "Поезда",
-            "Пассажиры",
-            "Багаж",
-            "Маршруты",
-            "Аналитика",
-        ],
+    st.markdown(
+        '<div class="sidebar-brand">'
+        '<div class="sidebar-brand-icon">🚆</div>'
+        '<div>'
+        '<div class="sidebar-brand-title">Railway Analytics</div>'
+        '<div class="sidebar-brand-subtitle">Система аналитики железнодорожных перевозок</div>'
+        '</div>'
+        '</div>',
+        unsafe_allow_html=True,
     )
 
-    st.divider()
+    st.markdown('<div class="sidebar-divider"></div>', unsafe_allow_html=True)
 
-    if st.button(
-        "⟳ Обновить данные",
-        use_container_width=True,
-    ):
-        refresh_data()
+    nav_labels = {
+        "Главная": "Главная",
+        "Поезда": "Поезда",
+        "Пассажиры": "Пассажиры",
+        "Багаж": "Багаж",
+        "Маршруты": "Маршруты",
+        "Аналитика": "Аналитика",
+    }
+
+    selected_nav = st.radio(
+        "Навигация",
+        list(nav_labels.keys()),
+        label_visibility="collapsed",
+    )
+    page = nav_labels[selected_nav]
+
+
 
 
 trains = cached_trains()
@@ -776,6 +958,19 @@ if page == "Главная":
         unsafe_allow_html=True,
     )
 
+    # KPI показываются только на главной странице.
+    kpi1, kpi2, kpi3 = st.columns(3)
+
+    with kpi1:
+        st.metric("Поезда", f"{len(trains):,}".replace(",", " "))
+
+    with kpi2:
+        st.metric("Пассажиры", f"{len(passengers):,}".replace(",", " "))
+
+    with kpi3:
+        total_tickets = int(trains["sold_tickets"].sum()) if "sold_tickets" in trains.columns else 0
+        st.metric("Продано билетов", f"{total_tickets:,}".replace(",", " "))
+
     if not trains.empty:
         col1, col2 = st.columns(2)
 
@@ -796,9 +991,15 @@ if page == "Главная":
             unsafe_allow_html=True,
         )
 
+        route_fig = revenue_by_route(trains)
+        try:
+            route_fig.set_size_inches(9.2, 3.6)
+        except Exception:
+            pass
+
         st.pyplot(
-            revenue_by_route(trains),
-            use_container_width=True,
+            route_fig,
+            use_container_width=False,
         )
 
     st.markdown(
@@ -807,7 +1008,7 @@ if page == "Главная":
     )
 
     st.dataframe(
-        display_date_columns(trains.head(10)),
+        prepare_display_dataframe(trains.head(10)),
         use_container_width=True,
         hide_index=True,
     )
@@ -945,7 +1146,7 @@ elif page == "Поезда":
 
             st.write(f"Найдено поездов: **{len(filtered)}**")
 
-            display_df = display_date_columns(filtered)
+            display_df = prepare_display_dataframe(filtered)
 
             st.dataframe(
                 display_df,
@@ -1271,7 +1472,7 @@ elif page == "Пассажиры":
         filter_col, sort_col = st.columns([20, 1], gap="small")
 
         with filter_col:
-            with st.expander("›  Поиск пассажиров", expanded=False):
+            with st.expander("Поиск пассажиров", expanded=False):
 
                 search = st.text_input(
                     "Поиск пассажира",
@@ -1343,7 +1544,7 @@ elif page == "Пассажиры":
 
         st.write(f"Найдено пассажиров: **{len(filtered)}**")
 
-        display_passengers = display_date_columns(filtered)
+        display_passengers = prepare_display_dataframe(filtered)
 
         st.dataframe(
             display_passengers,
@@ -1601,22 +1802,7 @@ elif page == "Багаж":
 
     with tab_view:
 
-        col1, col2 = st.columns(2)
-
-        with col1:
-            st.metric(
-                "Всего единиц багажа",
-                int(luggage["luggage_count"].sum())
-                if not luggage.empty else 0,
-            )
-
-        with col2:
-            st.metric(
-                "Дополнительные места",
-                int(luggage["extra_places"].sum())
-                if not luggage.empty else 0,
-            )
-
+        # На странице багажа намеренно нет лишних KPI-карточек.
         filtered = luggage.copy()
 
         search = st.text_input(
@@ -1650,7 +1836,7 @@ elif page == "Багаж":
         st.write(f"Найдено записей: **{len(filtered)}**")
 
         st.dataframe(
-            display_date_columns(filtered),
+            prepare_display_dataframe(filtered),
             use_container_width=True,
             hide_index=True,
         )
@@ -1859,7 +2045,7 @@ elif page == "Маршруты":
         st.info("Нет данных для анализа маршрутов.")
     else:
         st.dataframe(
-            routes,
+            prepare_display_dataframe(routes),
             use_container_width=True,
             hide_index=True,
         )
@@ -1880,8 +2066,8 @@ elif page == "Аналитика":
 
     st.header("Расширенная аналитика")
 
-    tab1, tab2, tab3 = st.tabs(
-        ["По датам", "Типы вагонов", "KPI"]
+    tab1, tab2 = st.tabs(
+        ["По датам", "Типы вагонов"]
     )
 
     with tab1:
@@ -1891,7 +2077,7 @@ elif page == "Аналитика":
         if daily.empty:
             st.info("Нет данных.")
         else:
-            display_daily = display_date_columns(daily)
+            display_daily = prepare_display_dataframe(daily)
 
             st.dataframe(
                 display_daily,
@@ -1926,7 +2112,7 @@ elif page == "Аналитика":
             st.info("Нет данных.")
         else:
             st.dataframe(
-                carriages,
+                prepare_display_dataframe(carriages),
                 use_container_width=True,
                 hide_index=True,
             )
@@ -1944,30 +2130,3 @@ elif page == "Аналитика":
                 "Скачать Excel-отчёт",
             )
 
-    with tab3:
-
-        col1, col2, col3 = st.columns(3)
-
-        with col1:
-            st.metric(
-                "Средняя цена билета",
-                f'{summary["average_ticket_price"]:.2f} BYN',
-            )
-
-        with col2:
-            st.metric(
-                "Всего багажа",
-                summary["luggage"],
-            )
-
-        with col3:
-            average_revenue = (
-                summary["revenue"] / summary["trains"]
-                if summary["trains"] > 0
-                else 0
-            )
-
-            st.metric(
-                "Средняя выручка на поезд",
-                f"{average_revenue:,.2f} BYN",
-            )
